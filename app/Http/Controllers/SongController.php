@@ -19,26 +19,12 @@ class SongController extends Controller
      */
     public function __invoke()
     {
+        // See User.php
+
         $user = auth()->user();
+        $response = $user->spotify()->send(new CurrentSongRequest);
 
-        if (blank($user->spotify_auth)) {
-            return redirect()->route('spotify.authorize');
-        }
-
-        /** @var AccessTokenAuthenticator $auth */
-        $auth = $user->spotify_auth;
-
-        if ($auth->hasExpired()) {
-            $auth = AuthConnector::make()->refreshAccessToken($auth);
-
-            $user->spotify_auth = $auth;
-            $user->save();
-        }
-
-        // Fetch the song.
-
-        $request = CurrentSongRequest::make()->authenticate($auth);
-        $response = ApiConnector::make()->send($request);
+        // Process response
 
         $track = $response->json('item');
 

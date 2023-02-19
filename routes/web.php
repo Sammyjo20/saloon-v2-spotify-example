@@ -3,6 +3,8 @@
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\SongController;
 use App\Http\Controllers\SpotifyController;
+use App\Http\Controllers\TracksController;
+use App\Http\Middleware\SpotifyAuthenticated;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,7 +20,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => '/', 'middleware' => 'auth'], function () {
     Route::get('/', SiteController::class)->name('home');
-    Route::get('/song', SongController::class)->name('song');
+
+    Route::middleware(SpotifyAuthenticated::class)->group(function () {
+        Route::get('/song', SongController::class)->name('song');
+        Route::get('/tracks', TracksController::class)->name('song');
+    });
 
     Route::controller(SpotifyController::class)->prefix('spotify')->name('spotify.')->group(function () {
         Route::get('authorize', 'handleAuthorization')->name('authorize');

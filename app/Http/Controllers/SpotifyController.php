@@ -18,7 +18,7 @@ class SpotifyController extends Controller
     {
         $connector = new AuthConnector;
 
-        $authorizationUrl = $connector->getAuthorizationUrl(['user-read-currently-playing']);
+        $authorizationUrl = $connector->getAuthorizationUrl(['user-read-currently-playing', 'user-library-read']);
 
         Session::put('spotifyAuthState', $connector->getState());
 
