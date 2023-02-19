@@ -2,10 +2,10 @@
 
 namespace App\Http\Integrations\Spotify;
 
-use Sammyjo20\Saloon\Http\SaloonConnector;
-use Sammyjo20\Saloon\Traits\Plugins\AcceptsJson;
+use Saloon\Http\Connector;
+use Saloon\Traits\Plugins\AcceptsJson;
 
-class ApiConnector extends SaloonConnector
+class ApiConnector extends Connector
 {
     use AcceptsJson;
 
@@ -14,7 +14,7 @@ class ApiConnector extends SaloonConnector
      *
      * @return string
      */
-    public function defineBaseUrl(): string
+    public function resolveBaseUrl(): string
     {
         return 'https://api.spotify.com/v1';
     }

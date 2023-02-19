@@ -12,7 +12,7 @@ class SpotifyController extends Controller
      * Handle the authorization URL redirection.
      *
      * @return \Illuminate\Http\RedirectResponse
-     * @throws \Sammyjo20\Saloon\Exceptions\OAuthConfigValidationException
+     * @throws \Saloon\Exceptions\OAuthConfigValidationException
      */
     public function handleAuthorization()
     {
@@ -28,14 +28,13 @@ class SpotifyController extends Controller
     /**
      * Handle the call back from Spotify.
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
-     * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \ReflectionException
-     * @throws \Sammyjo20\Saloon\Exceptions\InvalidStateException
-     * @throws \Sammyjo20\Saloon\Exceptions\OAuthConfigValidationException
-     * @throws \Sammyjo20\Saloon\Exceptions\SaloonException
-     * @throws \Sammyjo20\Saloon\Exceptions\SaloonRequestException
+     * @throws \Saloon\Exceptions\InvalidResponseClassException
+     * @throws \Saloon\Exceptions\InvalidStateException
+     * @throws \Saloon\Exceptions\OAuthConfigValidationException
+     * @throws \Saloon\Exceptions\PendingRequestException
      */
     public function handleCallback(Request $request)
     {

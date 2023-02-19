@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Integrations\Spotify\ApiConnector;
 use App\Http\Integrations\Spotify\AuthConnector;
 use App\Http\Integrations\Spotify\Requests\CurrentSongRequest;
 use Illuminate\Http\Request;
-use Sammyjo20\Saloon\Http\Auth\AccessTokenAuthenticator;
+use Saloon\Http\Auth\AccessTokenAuthenticator;
 
 class SongController extends Controller
 {
     /**
-     * @return \Illuminate\Http\RedirectResponse|void
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
      * @throws \ReflectionException
-     * @throws \Sammyjo20\Saloon\Exceptions\OAuthConfigValidationException
-     * @throws \Sammyjo20\Saloon\Exceptions\SaloonException
-     * @throws \Sammyjo20\Saloon\Exceptions\SaloonRequestException
+     * @throws \Saloon\Exceptions\InvalidResponseClassException
+     * @throws \Saloon\Exceptions\OAuthConfigValidationException
+     * @throws \Saloon\Exceptions\PendingRequestException
      */
     public function __invoke()
     {
@@ -37,8 +37,8 @@ class SongController extends Controller
 
         // Fetch the song.
 
-        $request = CurrentSongRequest::make()->withAuth($auth);
-        $response = $request->send();
+        $request = CurrentSongRequest::make()->authenticate($auth);
+        $response = ApiConnector::make()->send($request);
 
         $track = $response->json('item');
 

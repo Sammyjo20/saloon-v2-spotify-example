@@ -2,12 +2,12 @@
 
 namespace App\Http\Integrations\Spotify;
 
-use Sammyjo20\Saloon\Helpers\OAuth2\OAuthConfig;
-use Sammyjo20\Saloon\Http\SaloonConnector;
-use Sammyjo20\Saloon\Traits\OAuth2\AuthorizationCodeGrant;
-use Sammyjo20\Saloon\Traits\Plugins\AcceptsJson;
+use Saloon\Helpers\OAuth2\OAuthConfig;
+use Saloon\Http\Connector;
+use Saloon\Traits\OAuth2\AuthorizationCodeGrant;
+use Saloon\Traits\Plugins\AcceptsJson;
 
-class AuthConnector extends SaloonConnector
+class AuthConnector extends Connector
 {
     use AuthorizationCodeGrant;
     use AcceptsJson;
@@ -17,7 +17,7 @@ class AuthConnector extends SaloonConnector
      *
      * @return string
      */
-    public function defineBaseUrl(): string
+    public function resolveBaseUrl(): string
     {
         return 'https://accounts.spotify.com';
     }

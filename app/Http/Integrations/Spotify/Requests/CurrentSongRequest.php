@@ -2,32 +2,24 @@
 
 namespace App\Http\Integrations\Spotify\Requests;
 
-use App\Http\Integrations\Spotify\ApiConnector;
-use Sammyjo20\Saloon\Constants\Saloon;
-use Sammyjo20\Saloon\Http\SaloonRequest;
+use Saloon\Enums\Method;
+use Saloon\Http\Request;
 
-class CurrentSongRequest extends SaloonRequest
+class CurrentSongRequest extends Request
 {
-    /**
-     * The connector class.
-     *
-     * @var string|null
-     */
-    protected ?string $connector = ApiConnector::class;
-
     /**
      * The HTTP verb the request will use.
      *
-     * @var string|null
+     * @var Method
      */
-    protected ?string $method = Saloon::GET;
+    protected Method $method = Method::GET;
 
     /**
      * The endpoint of the request.
      *
      * @return string
      */
-    public function defineEndpoint(): string
+    public function resolveEndpoint(): string
     {
         return '/me/player/currently-playing';
     }
