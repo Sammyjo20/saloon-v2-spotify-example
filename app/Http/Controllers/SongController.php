@@ -26,7 +26,7 @@ class SongController extends Controller
 
         // Process response
 
-        $track = $response->json('item');
+        $track = $response->ok() ? $response->json('item') : null;
 
         return view('current-song', ['track' => $track]);
     }

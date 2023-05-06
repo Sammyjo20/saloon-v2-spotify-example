@@ -23,7 +23,7 @@ Route::group(['prefix' => '/', 'middleware' => 'auth'], function () {
 
     Route::middleware(SpotifyAuthenticated::class)->group(function () {
         Route::get('/song', SongController::class)->name('song');
-        Route::get('/tracks', TracksController::class)->name('song');
+        Route::get('/tracks', TracksController::class)->name('tracks');
     });
 
     Route::controller(SpotifyController::class)->prefix('spotify')->name('spotify.')->group(function () {

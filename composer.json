@@ -5,12 +5,13 @@
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "require": {
-        "php": "^8.0.2",
+        "php": "^8.1",
         "guzzlehttp/guzzle": "^7.5",
         "laravel/framework": "^9.11",
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
-        "sammyjo20/saloon": "dev-feature/request-paginator"
+        "sammyjo20/saloon": "^2.5",
+        "sammyjo20/saloon-pagination": "dev-main"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
@@ -19,7 +20,8 @@
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^6.1",
         "phpunit/phpunit": "^9.5.10",
-        "spatie/laravel-ignition": "^1.0"
+        "spatie/laravel-ignition": "^1.0",
+        "spatie/laravel-ray": "^1.32"
     },
     "autoload": {
         "psr-4": {
@@ -62,7 +64,7 @@
     "prefer-stable": true,
     "repositories": [
         {
-            "url": "../saloon",
+            "url": "../saloon-pagination-v2",
             "type": "path"
         }
     ]

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Integrations\Spotify\Requests\CurrentSongRequest;
 use App\Http\Integrations\Spotify\Requests\LikedSongsRequest;
+use App\Http\Integrations\Spotify\SpotifyPaginator;
 use Illuminate\Http\Request;
 
 class TracksController extends Controller
@@ -24,14 +25,17 @@ class TracksController extends Controller
 
         /** @var \App\Models\User $user */
         $user = auth()->user();
-
-        $paginator = $user->spotify()->paginate(new LikedSongsRequest);
+        $paginator = new SpotifyPaginator($user->spotify(), new LikedSongsRequest, 50);
 
         $collection = $paginator->collect('items')
             ->map(function ($track) {
                 return $track['track']['artists'][0]['name'] . ' - ' . $track['track']['name'];
-            });
+            })
+            ->collect();
 
-        return response()->json($collection);
+        return response()->json([
+            'data' => $collection,
+            'count' => count($collection),
+        ]);
     }
 }
